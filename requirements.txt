@@ -1,6 +1,7 @@
 cachelib==0.4.1
 category-encoders==2.3.0
 certifi==2021.10.8
+charset-normalizer==2.0.9
 click==8.0.3
 colorama==0.4.4
 Flask==2.0.2
@@ -10,6 +11,7 @@ Flask-SQLAlchemy==2.5.1
 Flask-WTF==1.0.0
 greenlet==1.1.2
 gunicorn==20.1.0
+idna==3.3
 itsdangerous==2.0.1
 Jinja2==3.0.3
 joblib==1.1.0
@@ -20,6 +22,7 @@ patsy==0.5.2
 pymongo==4.0.1
 python-dateutil==2.8.2
 pytz==2021.3
+requests==2.26.0
 scikit-learn==1.0.1
 scipy==1.7.3
 six==1.16.0
@@ -27,6 +30,7 @@ sklearn==0.0
 SQLAlchemy==1.4.27
 statsmodels==0.13.1
 threadpoolctl==3.0.0
+urllib3==1.26.7
 Werkzeug==2.0.2
 wincertstore==0.2
 WTForms==3.0.0
