@@ -83,5 +83,18 @@
   {{user_count}}명 입니다.
 </p>
 </div>
+<div class=recommend_title>
+  <p>음식점 Comment 가장 많은 TOP5 -NAVER</p>
+</div>
+<div class=recommend_name>
+  {%for name in names %}
+  <p>{{name}}</p>
+  {% endfor %}
+</div>
+<div class=recommend_road>
+  {% for road in roads %}
+  <p>{{road}}</p>
+  {% endfor %}
+</div>
 </body>
 </html>

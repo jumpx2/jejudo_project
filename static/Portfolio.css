@@ -26,3 +26,33 @@ p {
   font-size:50px;
 
 }
+.recommend_name{
+  position: absolute;
+  top: 40%;
+  left: 63%;
+  transform: translate(-50%,-50%);
+  width: 400px;
+  height: 100px;
+  font-size:20px;
+  font-style: bold;
+}
+.recommend_road{
+  position: absolute;
+  top: 40%;
+  left: 81%;
+  transform: translate(-50%,-50%);
+  width: 500px;
+  height: 100px;
+  font-size:20px;
+  font-style: bold;
+}
+.recommend_title{
+  position: absolute;
+  top: 35%;
+  left: 73%;
+  transform: translate(-50%,-50%);
+  width: 500px;
+  height: 100px;
+  font-size:20px;
+  font-style: bold;
+}

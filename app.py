@@ -11,6 +11,8 @@ import sklearn
 import category_encoders
 import numpy as np
 from flask_sqlalchemy import SQLAlchemy
+import requests
+import json
 
 app = Flask(__name__)
 csrf = CSRFProtect(app)
@@ -133,9 +135,9 @@ def portfolio():
         X_test['biz_type'].values[0] = '기타'
 
       if X_test['sex'].values[0] == 'male':
-        X_test['biz_type'].values[0] = '남자'
+        X_test['sex'].values[0] = '남자'
       else:
-        X_test['biz_type'].values[0] = '여자'
+        X_test['sex'].values[0] = '여자'
       if X_test['day_of_week'].values[0] == 'mon':
         X_test['day_of_week'].values[0] = '월'
       elif X_test['day_of_week'].values[0] == 'tue':
@@ -151,12 +153,40 @@ def portfolio():
       else:
         X_test['day_of_week'].values[0] = '일'
 
-
       user_count = model.predict(X_test)
       user_count = np.round(user_count, 1)
+
     else:
       user_count=0
-  return render_template('Portfolio.html', user_count=user_count)
+
+    if user_count != 0:
+
+      client_id = 'gOskwwQzbEutCU9wQ90k'
+      client_key = '5Na6Pkwa_w'
+      
+      
+      if X_test['biz_type'].values[0] == '고기':
+        X_test['biz_type'].values[0] = '고기요리'
+      else:
+        X_test['biz_type'].values[0]
+      print(X_test)
+
+      naver_url = 'https://openapi.naver.com/v1/search/local?display=5&sort=comment&query=제주도 '+ X_test['biz_type'].values[0]
+      headers = {"X-Naver-Client-Id":client_id, "X-Naver-Client-Secret":client_key}
+      response = requests.get(naver_url, headers=headers)
+      names = []
+      roads = []
+      data = response.json()
+      for i in data['items']:
+        title = i['title']
+        road = i['roadAddress']
+        names.append(title)
+        roads.append(road)
+    else:
+      names =''
+      roads =''
+
+  return render_template('Portfolio.html', user_count=user_count, names=names, roads=roads)
 
 
 if __name__ == '__main__':  
