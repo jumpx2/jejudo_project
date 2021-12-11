@@ -1,6 +1,6 @@
 .check_box {
   position: absolute;
-  top: 20%;
+  top: 30%;
   left: 30%;
   transform: translate(-50%,-50%);
   width: 600px;
@@ -18,7 +18,7 @@ p {
 }
 .user{
   position: absolute;
-  top: 20%;
+  top: 30%;
   left: 80%;
   transform: translate(-50%,-50%);
   width: 600px;
@@ -28,7 +28,7 @@ p {
 }
 .recommend_name{
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 63%;
   transform: translate(-50%,-50%);
   width: 400px;
@@ -38,8 +38,8 @@ p {
 }
 .recommend_road{
   position: absolute;
-  top: 40%;
-  left: 81%;
+  top: 50%;
+  left: 85%;
   transform: translate(-50%,-50%);
   width: 500px;
   height: 100px;
@@ -48,8 +48,18 @@ p {
 }
 .recommend_title{
   position: absolute;
-  top: 35%;
-  left: 73%;
+  top: 45%;
+  left: 70%;
+  transform: translate(-50%,-50%);
+  width: 500px;
+  height: 100px;
+  font-size:20px;
+  font-style: bold;
+}
+#dashboard {
+  position: absolute;
+  top: 75%;
+  left: 80%;
   transform: translate(-50%,-50%);
   width: 500px;
   height: 100px;

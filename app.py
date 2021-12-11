@@ -13,6 +13,8 @@ import numpy as np
 from flask_sqlalchemy import SQLAlchemy
 import requests
 import json
+import psycopg2
+from models import postgre
 
 app = Flask(__name__)
 csrf = CSRFProtect(app)
@@ -30,6 +32,8 @@ app.config['WTF_CSRF_SECRET_KEY'] = "secretkey123123123"
 db.init_app(app)
 db.app = app
 db.create_all()
+
+connection, cur = postgre()
 
 @app.route('/')
 def mainpage():
@@ -81,8 +85,8 @@ def about():
 
 @app.route('/Portfolio')
 def portfolio():
-  
   if request.method =='GET':
+    
     req = request.query_string
     String = req.decode('utf-8')
     color = String.split('&')
@@ -153,8 +157,30 @@ def portfolio():
       else:
         X_test['day_of_week'].values[0] = '일'
 
+      if X_test['biz_type'].values[0] == '고기':
+        X_test['biz_type'].values[0] = '고기요리'
+      else:
+        X_test['biz_type'].values[0]
+        
       user_count = model.predict(X_test)
       user_count = np.round(user_count, 1)
+
+      user = user_count[0]
+      month = X_test['base_year_month'].values[0]
+      year = X_test['base_year'].values[0]
+      biztype = X_test['biz_type'].values[0]
+      sex = X_test['sex'].values[0]
+      age =X_test['age_range'].values[0]
+      week = X_test['day_of_week'].values[0]
+        
+
+      cur.execute(""" INSERT INTO jeju (base_year_month, base_year, bize_type, sex, age_range, day_of_week, user_count) 
+      VALUES (%s, %s, %s, %s, %s, %s, %s);""",(month, year, biztype, sex, age, week, user))
+      
+      connection.commit()
+      cur.close()
+      connection.close()
+      
 
     else:
       user_count=0
@@ -176,6 +202,7 @@ def portfolio():
       response = requests.get(naver_url, headers=headers)
       names = []
       roads = []
+      url = 'http://127.0.0.1:3000/public/dashboard/cb6e2602-7cb7-4f81-9ce1-d6064e6de495'
       data = response.json()
       for i in data['items']:
         title = i['title']
@@ -185,8 +212,9 @@ def portfolio():
     else:
       names =''
       roads =''
+      url = ''
 
-  return render_template('Portfolio.html', user_count=user_count, names=names, roads=roads)
+  return render_template('Portfolio.html', user_count=user_count, names=names, roads=roads, url=url)
 
 
 if __name__ == '__main__':  
