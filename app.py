@@ -14,7 +14,6 @@ from flask_sqlalchemy import SQLAlchemy
 import requests
 import json
 import psycopg2
-from models import postgre
 
 app = Flask(__name__)
 csrf = CSRFProtect(app)
@@ -33,7 +32,7 @@ db.init_app(app)
 db.app = app
 db.create_all()
 
-connection, cur = postgre()
+
 
 @app.route('/')
 def mainpage():
@@ -172,7 +171,19 @@ def portfolio():
       sex = X_test['sex'].values[0]
       age =X_test['age_range'].values[0]
       week = X_test['day_of_week'].values[0]
-        
+
+      
+      if type(X_test) == series:
+        def postgre():
+          connection = psycopg2.connect(
+          host="castor.db.elephantsql.com",
+          database="ksscqlnz",
+          user="ksscqlnz",
+          password="b60wugaYTpdHgnMDucQAENPIFSkMLncg")
+
+          cur = connection.cursor()
+          return connection, cur
+      connection, cur = postgre()
 
       cur.execute(""" INSERT INTO jeju (base_year_month, base_year, bize_type, sex, age_range, day_of_week, user_count) 
       VALUES (%s, %s, %s, %s, %s, %s, %s);""",(month, year, biztype, sex, age, week, user))
@@ -195,7 +206,7 @@ def portfolio():
         X_test['biz_type'].values[0] = '고기요리'
       else:
         X_test['biz_type'].values[0]
-      print(X_test)
+      
 
       naver_url = 'https://openapi.naver.com/v1/search/local?display=5&sort=comment&query=제주도 '+ X_test['biz_type'].values[0]
       headers = {"X-Naver-Client-Id":client_id, "X-Naver-Client-Secret":client_key}
