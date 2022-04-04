@@ -17,3 +17,5 @@
 - heroku를 사용해 배포  
 - Dashboard -> docker를 통해 metabase를 실행 
 ![Mar-31-2022 16-18-17](https://user-images.githubusercontent.com/81940655/160999657-82192294-eb56-4166-8d19-a9295a6c2da8.gif)
+Metabase로 시각화 진행
+![Animation](https://user-images.githubusercontent.com/81940655/161478510-ff86a387-aa58-4e42-a0ba-092da88adbd1.gif)
